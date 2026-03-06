@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTG</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/detai.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Pinyon+Script&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+</head>
+<body>
+    <!-- Top Bar với Back Button và các nút phải -->
+    <div class="detail-top-bar">
+        <a href="index.html" class="detail-back-btn">
+            <i class="fas fa-arrow-left"></i>
+            <span data-key=""></span>
+        </a>
+
+        <div class="detail-right-actions">
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="vn">VN</option>
+                    <option value="en">EN</option>
+                </select>
+            </div>
+
+            
+            <div class="detail-user-wrapper" id="detailUserWrapper">
+                <div class="detail-user-trigger" id="detailUserTrigger">
+                    <div class="detail-user-avatar" id="detailUserAvatar">
+                        <i class="far fa-user-circle"></i>
+                    </div>
+                </div>
+                
+                <div class="detail-dropdown" id="detailDropdown">
+                    <div class="dropdown-not-logged" id="detailDropdownNotLogged">
+                        <button class="detail-dropdown-item" id="detailShowLoginBtn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span data-key="login">Đăng nhập</span>
+                        </button>
+                        <button class="detail-dropdown-item" id="detailShowRegisterBtn">
+                            <i class="fas fa-user-plus"></i>
+                            <span data-key="register">Đăng ký</span>
+                        </button>
+                    </div>
+                    
+                    <div class="dropdown-logged" id="detailDropdownLogged" style="display: none;">
+                        <div class="detail-user-info">
+                            <div class="detail-user-name" id="detailUserName"></div>
+                            <div class="detail-user-email" id="detailUserEmail"></div>
+                        </div>
+                        <button class="detail-dropdown-item" id="detailChangeAvatarBtn">
+                            <i class="fas fa-camera"></i>
+                            <span data-key="changeAvatar">Đổi ảnh đại diện</span>
+                        </button>
+                        <div class="detail-dropdown-divider"></div>
+                        <button class="detail-dropdown-item" id="detailLogoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span data-key="logout">Đăng xuất</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ẩn navbar mặc định -->
+    <style>
+        .navbar {
+            display: none !important;
+        }
+        .detail-container {
+            padding-top: 90px !important;
+        }
+    </style>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <button class="close-search" id="closeSearch"><i class="fas fa-times"></i></button>
+            <h2 data-key="searchTitle">Tìm kiếm điểm đến</h2>
+            <div class="search-input-group">
+                <input type="text" id="searchInput" data-key="searchPlaceholder" placeholder="Nhập tên tỉnh thành..." autocomplete="off">
+                <button id="searchSubmit"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <main class="detail-container">
+        <section id="headerProvince" class="intro-top-section"></section>
+        
+        <div class="internal-menu-container">
+            <div class="internal-menu">
+                <button class="menu-item active" data-type="food" data-key="foodTitle">Ẩm thực</button>
+                <button class="menu-item" data-type="culture" data-key="cultureTitle">Văn hóa</button>
+                <button class="menu-item" data-type="play" data-key="playTitle">Trải nghiệm</button>
+            </div>
+        </div>
+        
+        <section class="slider-wrapper">
+            <button class="slider-nav prev" id="goPrev"><i class="fas fa-chevron-left"></i></button>
+            <div class="slider-container">
+                <div id="sliderContent" class="slider-content"></div>
+            </div>
+            <button class="slider-nav next" id="goNext"><i class="fas fa-chevron-right"></i></button>
+        </section>
+        
+        <!-- Popup Detail -->
+        <div id="infoOverlay" class="info-overlay">
+            <div class="info-content">
+                <button class="close-info" id="closeInfo">&times;</button>
+                <div id="infoBody"></div>
+            </div>
+        </div>
+        
+        <!-- ===== CỘNG ĐỒNG CHIA SẺ ===== -->
+        <section class="community-section">
+            <div class="community-header">
+                <h2 data-key="communityTitle">Chia sẻ câu chuyện của bạn</h2>
+            </div>
+
+            <!-- KHUNG BÌNH LUẬN ĐƠN GIẢN -->
+            <div class="simple-comment">
+                <div class="simple-comment-form">
+                    <input type="text" class="simple-comment-input" placeholder="✍️...">
+                    
+                    <div class="simple-comment-media-menu">
+                        <button class="simple-comment-add" id="commentMediaBtn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        
+                        <div class="simple-comment-media-dropdown" id="commentMediaDropdown">
+                            <button class="simple-comment-media-item" id="chooseImageBtn">
+                                <i class="fas fa-image"></i>
+                                <span>Chọn ảnh</span>
+                            </button>
+                            <button class="simple-comment-media-item" id="chooseVideoBtn">
+                                <i class="fas fa-video"></i>
+                                <span>Thêm video</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button class="simple-comment-submit" disabled>Đăng</button>
+                </div>
+                
+                <div class="simple-comment-previews" id="commentPreviews" style="display: none;"></div>
+                <div class="simple-comment-video-preview" id="commentVideoPreview" style="display: none;"></div>
+            </div>
+
+            <!-- Bộ lọc bài viết -->
+            <div class="post-filters">
+                <button class="filter-btn active" data-filter="all" data-key="filterAll">Tất cả</button>
+                <button class="filter-btn" data-filter="image" data-key="filterImage">Ảnh</button>
+                <button class="filter-btn" data-filter="video" data-key="filterVideo">Video</button>
+            </div>
+
+            <!-- Khu vực hiển thị bài viết -->
+            <div id="communityPosts" class="community-posts"></div>
+        </section>
+
+        <!-- MODAL CHI TIẾT BÀI VIẾT + BÌNH LUẬN -->
+        <div id="postDetailModal" class="modal">
+            <div class="modal-content post-detail-content">
+                <span class="close-modal">&times;</span>
+                <div id="postDetailBody"></div>
+                
+                <div class="comment-section-new">
+                    <div class="comment-header">
+                        <h4 data-key="commentsTitle">Bình luận</h4>
+                        <span class="comment-count" id="commentCount">0</span>
+                    </div>
+                    
+                    <div id="commentFormWrapper"></div>
+                    <div id="commentList" class="comment-list-new"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-key="logoTitle">VietnamTravelGuide</h3>
+                <p data-key="footerDesc">Cẩm nang du lịch và cộng đồng chia sẻ trải nghiệm du lịch Việt Nam.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-key="quickLinks">Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="index.html" data-key="homeLink">Trang chủ</a></li>
+                    <li><a href="index.html?region=north" data-key="northLink">Miền Bắc</a></li>
+                    <li><a href="index.html?region=central" data-key="centralLink">Miền Trung</a></li>
+                    <li><a href="index.html?region=south" data-key="southLink">Miền Nam</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-key="connectTitle">Kết nối với chúng tôi</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vietnam Travel Guide. Tất cả các quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL ĐĂNG NHẬP -->
+    <div class="modal-login" id="loginModal">
+        <div class="modal-login-content">
+            <div class="modal-login-close" id="closeLoginModal">&times;</div>
+            
+            <div class="modal-login-header">
+                <h3 data-key="loginTitle">Đăng nhập</h3>
+                <p data-key="loginSubtitle">Đăng nhập để bình luận và chia sẻ</p>
+            </div>
+            
+            <label class="modal-login-label" data-key="loginLabel">Tên đăng nhập</label>
+            <input type="text" class="modal-login-input" id="loginUsername" data-key="loginPlaceholder" placeholder="Nhập email hoặc số điện thoại">
+            
+            <button class="modal-login-btn" id="submitLoginBtn" data-key="loginButton">Tiếp tục</button>
+            
+            <div class="modal-login-terms">
+                <span data-key="loginTerms">Bằng cách tiếp tục, bạn đồng ý với</span>
+                <a href="#" data-key="terms">Điều khoản</a> <span data-key="and">và</span>
+                <a href="#" data-key="privacy">Chính sách bảo mật</a>
+            </div>
+            
+            <div class="modal-login-divider">
+                <span data-key="loginWith">Hoặc đăng nhập bằng</span>
+            </div>
+            
+            <div class="modal-login-social">
+                <button class="modal-login-social-btn" id="googleLoginBtn">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </button>
+            </div>
+            
+            <div class="modal-login-footer">
+                <a href="#" id="switchToRegisterLink" data-key="registerLink">Đăng ký tài khoản</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ĐĂNG KÝ -->
+    <div class="modal-login" id="registerModal">
+        <div class="modal-login-content">
+            <div class="modal-login-close" id="closeRegisterModal">&times;</div>
+            
+            <div class="modal-login-header">
+                <h3 data-key="registerTitle">Đăng ký</h3>
+                <p data-key="registerSubtitle"></p>
+            </div>
+            
+            <label class="modal-login-label" data-key="registerNameLabel">Họ và tên</label>
+            <input type="text" class="modal-login-input" id="registerFullName" data-key="registerNamePlaceholder" placeholder="Nhập họ và tên">
+            
+            <label class="modal-login-label" data-key="registerEmailLabel">Email</label>
+            <input type="email" class="modal-login-input" id="registerEmail" data-key="registerEmailPlaceholder" placeholder="Nhập email">
+            
+            <label class="modal-login-label" data-key="registerPasswordLabel">Mật khẩu</label>
+            <input type="password" class="modal-login-input" id="registerPassword" data-key="registerPasswordPlaceholder" placeholder="Ít nhất 6 ký tự">
+            
+            <button class="modal-login-btn" id="submitRegisterBtn" data-key="registerButton">Đăng ký</button>
+            
+            <div class="modal-login-terms">
+                <span data-key="registerTerms">Bằng cách đăng ký, bạn đồng ý với</span>
+                <a href="#" data-key="terms">Điều khoản</a> <span data-key="and">và</span>
+                <a href="#" data-key="privacy">Chính sách bảo mật</a>
+            </div>
+            
+            <div class="modal-login-divider">
+                <span data-key="registerWith">Hoặc đăng ký bằng</span>
+            </div>
+            
+            <div class="modal-login-social">
+                <button class="modal-login-social-btn" id="googleRegisterBtn">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </button>
+            </div>
+            
+            <div class="modal-login-footer">
+                <a href="#" id="switchToLoginLink" data-key="loginLink">Đã có tài khoản? Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast"></div>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- File input ẩn cho avatar -->
+    <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
+
+    <script>
+        window.provincesData = [];
+        window.heroImages = [];
+        window.translations = {};
+    </script>
+    
+    <script src="js/data.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/users.js"></script>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCHu4ZTXF8OfAEjd6-wZ1PkQKpSt46Xrnk",
+            authDomain: "vietnam-travel-guide-10fd0.firebaseapp.com",
+            projectId: "vietnam-travel-guide-10fd0",
+            storageBucket: "vietnam-travel-guide-10fd0.firebasestorage.app",
+            messagingSenderId: "92270748924",
+            appId: "1:92270748924:web:90a69839f00ac2cbbce379"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.firebaseLogin = function() {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    const user = result.user;
+                    
+                    const userData = {
+                        name: user.displayName,
+                        email: user.email,
+                        avatar: user.photoURL
+                    };
+                    
+                    if (typeof window.handleGoogleLogin === 'function') {
+                        window.handleGoogleLogin(user);
+                    } else if (typeof setGlobalUser === 'function') {
+                        setGlobalUser(userData, true);
+                        
+                        document.getElementById('loginModal')?.classList.remove('active');
+                        document.getElementById('registerModal')?.classList.remove('active');
+                        
+                        const lang = localStorage.getItem('vietnamTravelLanguage') || 'vn';
+                        const message = lang === 'en' ? 'Welcome ' + user.displayName : 'Xin chào ' + user.displayName;
+                        if (typeof showToast === 'function') {
+                            showToast(message, 'success');
+                        }
+                    }
+                })
+                .catch((error) => {
+                    alert("Lỗi: " + error.message);
+                });
+        };
+    </script>
+    
+    <script>
+        // Đồng bộ user và language
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUser = localStorage.getItem('currentSession');
+            if (savedUser) {
+                try {
+                    const userData = JSON.parse(savedUser);
+                    if (typeof setGlobalUser === 'function') {
+                        setGlobalUser(userData, false);
+                    }
+                } catch (e) {
+                    console.error('Lỗi parse user:', e);
+                }
+            }
+            
+            const savedLang = localStorage.getItem('vietnamTravelLanguage') || 'vn';
+            const langSelect = document.getElementById('languageSelect');
+            if (langSelect) {
+                langSelect.value = savedLang;
+            }
+            
+            if (typeof applyLanguage === 'function') {
+                applyLanguage(savedLang);
+            }
+            
+            document.addEventListener('click', function(e) {
+                const detailDropdown = document.getElementById('detailDropdown');
+                const detailWrapper = document.getElementById('detailUserWrapper');
+                if (detailDropdown && detailWrapper && !detailWrapper.contains(e.target)) {
+                    detailDropdown.classList.remove('show');
+                }
+            });
+        });
+    </script>
+    
+    <script src="js/main_logic.js"></script>
+</body>
+</html>

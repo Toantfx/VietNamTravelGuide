@@ -1,0 +1,328 @@
+/* home.css - Trang chủ */
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding-top: 70px;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 1.5rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 8vw, 4rem);
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    color: white;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    color: white;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-btn {
+    background: transparent;
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    transition: var(--transition);
+    display: inline-block;
+    border: 2px solid white;
+    backdrop-filter: blur(5px);
+}
+
+.hero-btn:hover {
+    background: white;
+    color: #2c5f2d;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(255, 255, 255, 0.3);
+}
+/* Vietnam Soul Section */
+.vietnam-soul-full {
+    padding: 5rem 1.5rem;
+    background: var(--bg-white);
+    text-align: center;
+}
+
+.soul-content {
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.vietnam-soul-full h2 {
+    color: var(--primary);
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    margin-bottom: 1rem;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.divider .line {
+    width: 50px;
+    height: 1px;
+    background: var(--accent);
+}
+.divider span {
+    color: var(--accent);
+    margin: 0 12px;
+    font-size: 1.2rem;
+}
+
+.vietnam-soul-full p {
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    line-height: 1.8;
+    color: var(--text-regular);
+    text-align: justify;
+    padding: 0 1rem;
+}
+
+/* Destinations Section */
+.destinations-section {
+    padding: 4rem 1.5rem;
+    text-align: center;
+}
+
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin: 2.5rem auto 0;
+    max-width: 1200px;
+    justify-content: center;
+}
+
+.destination-card {
+    background: var(--bg-white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    cursor: pointer;
+    height: 360px;
+    border: 1px solid var(--border-light);
+}
+.destination-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-image {
+    height: 100%;
+    position: relative;
+}
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+.destination-card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.card-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+    color: white;
+    font-family: 'Playfair Display', 'Montserrat', serif;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 600;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    padding: 1rem;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+/* Pagination - Số trang và nút điều hướng */
+
+/* Pagination - Xám nhạt nhẹ nhàng */
+
+.page-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;  /* Nền xám rất nhạt */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: #6b7280;  /* Xám nhạt */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+}
+
+.page-btn:hover:not(.active) {
+    border-color: #9ca3af;
+    color: #374151;
+    background: white;
+}
+
+.page-btn.active {
+    background: #6b7280;  /* Xám nhạt cho active */
+    color: white;
+    border-color: #6b7280;
+}
+
+.page-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-dots {
+    color: #d1d5db;
+    padding: 0 0.3rem;
+}
+
+.page-info {
+    width: 100%;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}/* Responsive cho Destinations Grid */
+@media (max-width: 992px) {
+    .destinations-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .destination-card { height: 320px; }
+}
+
+@media (max-width: 640px) {
+    .destinations-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
+    .destination-card { height: 300px; }
+}
+
+@media (max-width: 480px) {
+    .destination-card { height: 280px; }
+    .card-title { font-size: 2rem; }
+}
+
+/* Tablet Landscape */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .hero { min-height: 500px; }
+    .hero h1 { font-size: 3rem; }
+    .hero-subtitle { font-size: 1.1rem; }
+    .vietnam-soul-full { padding: 4rem 1.5rem; }
+    .destinations-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Tablet Portrait */
+@media (min-width: 768px) and (max-width: 900px) and (orientation: portrait) {
+    .destinations-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Small Desktop */
+@media (min-width: 1025px) and (max-width: 1200px) {
+    .destinations-grid { gap: 20px; }
+    .destination-card { height: 340px; }
+}9:09 PM 05/03/2026
+/* Thêm vào cuối file home.css */
+
+/* Scroll margin cho destinations section */
+.destinations-section {
+    scroll-margin-top: 80px;
+}
+
+/* Animation khi filter */
+.destination-card {
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Highlight effect cho active region */
+.nav-link.region-link.active {
+    color: var(--hover-color);
+    background: rgba(139, 90, 43, 0.08);
+    border-color: rgba(139, 90, 43, 0.2);
+    font-weight: 600;
+}
+
+.footer-region-link:hover,
+.footer-home-link:hover {
+    color: var(--hover-color);
+    transform: translateX(8px) translateY(-2px);
+}
