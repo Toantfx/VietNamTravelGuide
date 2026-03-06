@@ -43,7 +43,6 @@ window.translations = {
         addToPost: "Thêm vào bài viết của bạn",
         addLink: "Link",
         addImage: "Thư viện",
-        post: "Đăng",
         filterAll: "Tất cả",
         filterImage: "Ảnh",
         filterVideo: "Video",
@@ -140,7 +139,6 @@ window.translations = {
         addToPost: "Add to your post",
         addLink: "Link",
         addImage: "Photo",
-        post: "Post",
         filterAll: "All",
         filterImage: "Photos",
         filterVideo: "Videos",
@@ -195,5 +193,6 @@ window.translations = {
         searchYouTube: "Watch on YouTube",
     }
 };
+
 
 console.log("✅ Translations loaded (VN/EN)");
