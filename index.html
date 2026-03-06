@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTG</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Pinyon+Script&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.jpg" alt="Vietnam Travel Guide" class="logo-img">
+                <span class="logo-text">Vietnam<span>TravelGuide</span></span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link" data-key="homeLink">Trang chủ</a>
+                <a href="#north" class="nav-link region-link" data-region="north" data-key="northLink">Miền Bắc</a>
+                <a href="#central" class="nav-link region-link" data-region="central" data-key="centralLink">Miền Trung</a>
+                <a href="#south" class="nav-link region-link" data-region="south" data-key="southLink">Miền Nam</a>
+            </div>
+                
+            <div class="nav-actions">
+                <!-- 1. Language Selector - ĐẶT LÊN ĐẦU -->
+                <div class="language-selector">
+                    <select id="languageSelect">
+                        <option value="vn">VN</option>
+                        <option value="en">EN</option>
+                    </select>
+                </div>
+
+                <!-- 2. Search Button -->
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <!-- 3. User Menu -->
+                <div class="user-menu-wrapper" id="userMenuWrapper">
+                    <div class="user-menu-trigger" id="userMenuTrigger">
+                        <div class="user-avatar-global" id="globalUserAvatar">
+                            <i class="far fa-user-circle"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="global-dropdown" id="globalDropdown">
+                        <div class="dropdown-not-logged" id="globalDropdownNotLogged">
+                            <button class="dropdown-item-global" id="globalShowLoginBtn">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span data-key="login">Đăng nhập</span>
+                            </button>
+                            <button class="dropdown-item-global" id="globalShowRegisterBtn">
+                                <i class="fas fa-user-plus"></i>
+                                <span data-key="register">Đăng ký</span>
+                            </button>
+                        </div>
+                        
+                        <div class="dropdown-logged" id="globalDropdownLogged" style="display: none;">
+                            <div class="user-info-global">
+                                <div class="user-name-global" id="globalUserName"></div>
+                                <div class="user-email-global" id="globalUserEmail"></div>
+                            </div>
+                            <button class="dropdown-item-global" id="changeAvatarBtn">
+                                <i class="fas fa-camera"></i>
+                                <span data-key="changeAvatar">Đổi ảnh đại diện</span>
+                            </button>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item-global" id="globalLogoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span data-key="logout">Đăng xuất</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Mobile Menu Button (giữ ở cuối) -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <button class="close-search" id="closeSearch">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 data-key="searchTitle">Tìm kiếm điểm đến</h2>
+            <div class="search-input-group">
+                <input type="text" id="searchInput" placeholder="Nhập tên địa điểm, tỉnh thành..." data-key="searchPlaceholder">
+                <button class="search-submit" id="searchSubmit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="heroSection">
+        <video class="hero-video" id="heroVideo" autoplay muted playsinline>
+            <source src="videos/nen1.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+
+        <button class="mute-toggle" id="muteToggle">
+            <i class="fas fa-volume-mute"></i>
+        </button>
+
+        <div class="hero-content">
+            <h1 data-key="heroTitle">Khám phá vẻ đẹp Việt Nam</h1>
+            <p class="hero-subtitle" data-key="heroSubtitle">Trải nghiệm văn hóa, ẩm thực và cảnh quan tuyệt vời từ Bắc vào Nam</p>
+            <a href="#destinations" class="hero-btn" data-key="exploreBtn">Khám phá ngay</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="vietnam-soul-full">
+            <div class="soul-content">
+                <h2 data-key="whyVietnamTitle">Tại sao phải là Việt Nam?</h2>
+                <div class="divider">
+                    <div class="line"></div>
+                    <span>❧</span>
+                    <div class="line"></div>
+                </div>
+                <p data-key="whyVietnam"></p>
+            </div>
+        </section>
+        
+        <section class="destinations-section" id="destinations">
+            <div class="section-header">
+                <h2 data-key="featuredTitle">Điểm đến tiêu biểu</h2>
+                <p data-key="featuredSubtitle">Khám phá địa điểm du lịch nổi bật nhất Việt Nam</p>
+            </div>
+            
+            <div class="destinations-grid" id="destinationsGrid"></div>
+            <div id="pagination" class="pagination-container"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-key="logoTitle">VietnamTravelGuide</h3>
+                <p data-key="footerDesc">Cẩm nang du lịch và cộng đồng chia sẻ trải nghiệm du lịch Việt Nam.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-key="quickLinks">Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="#" class="footer-home-link" data-key="homeLink">Trang chủ</a></li>
+                    <li><a href="#" class="footer-region-link" data-region="north" data-key="northLink">Miền Bắc</a></li>
+                    <li><a href="#" class="footer-region-link" data-region="central" data-key="centralLink">Miền Trung</a></li>
+                    <li><a href="#" class="footer-region-link" data-region="south" data-key="southLink">Miền Nam</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 data-key="connectTitle">Kết nối với chúng tôi</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vietnam Travel Guide. Tất cả các quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- MODAL ĐĂNG NHẬP -->
+    <div class="modal-login" id="loginModal">
+        <div class="modal-login-content">
+            <div class="modal-login-close" id="closeLoginModal">&times;</div>
+            
+            <div class="modal-login-header">
+                <h3 data-key="loginTitle">Đăng nhập</h3>
+                <p data-key="loginSubtitle">Đăng nhập để bình luận và chia sẻ</p>
+            </div>
+            
+            <label class="modal-login-label" data-key="loginLabel">Tên đăng nhập</label>
+            <input type="text" class="modal-login-input" id="loginUsername" data-key="loginPlaceholder" placeholder="Nhập email hoặc số điện thoại">
+            
+            <button class="modal-login-btn" id="submitLoginBtn" data-key="loginButton">Tiếp tục</button>
+            
+            <div class="modal-login-terms">
+                <span data-key="loginTerms">Bằng cách tiếp tục, bạn đồng ý với</span>
+                <a href="#" data-key="terms">Điều khoản</a> <span data-key="and">và</span>
+                <a href="#" data-key="privacy">Chính sách bảo mật</a>
+            </div>
+            
+            <div class="modal-login-divider">
+                <span data-key="loginWith">Hoặc đăng nhập bằng</span>
+            </div>
+            
+            <div class="modal-login-social">
+                <button class="modal-login-social-btn" id="googleLoginBtn">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </button>
+            </div>
+            
+            <div class="modal-login-footer">
+                <a href="#" id="switchToRegisterLink" data-key="registerLink">Đăng ký tài khoản</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ĐĂNG KÝ -->
+    <div class="modal-login" id="registerModal">
+        <div class="modal-login-content">
+            <div class="modal-login-close" id="closeRegisterModal">&times;</div>
+            
+            <div class="modal-login-header">
+                <h3 data-key="registerTitle">Đăng ký</h3>
+                <p data-key="registerSubtitle">Tham gia để nhận nhiều ưu đãi</p>
+            </div>
+            
+            <label class="modal-login-label" data-key="registerNameLabel">Họ và tên</label>
+            <input type="text" class="modal-login-input" id="registerFullName" data-key="registerNamePlaceholder" placeholder="Nhập họ và tên">
+            
+            <label class="modal-login-label" data-key="registerEmailLabel">Email</label>
+            <input type="email" class="modal-login-input" id="registerEmail" data-key="registerEmailPlaceholder" placeholder="Nhập email">
+            
+            <label class="modal-login-label" data-key="registerPasswordLabel">Mật khẩu</label>
+            <input type="password" class="modal-login-input" id="registerPassword" data-key="registerPasswordPlaceholder" placeholder="Ít nhất 6 ký tự">
+            
+            <button class="modal-login-btn" id="submitRegisterBtn" data-key="registerButton">Đăng ký</button>
+            
+            <div class="modal-login-terms">
+                <span data-key="registerTerms">Bằng cách đăng ký, bạn đồng ý với</span>
+                <a href="#" data-key="terms">Điều khoản</a> <span data-key="and">và</span>
+                <a href="#" data-key="privacy">Chính sách bảo mật</a>
+            </div>
+            
+            <div class="modal-login-divider">
+                <span data-key="registerWith">Hoặc đăng ký bằng</span>
+            </div>
+            
+            <div class="modal-login-social">
+                <button class="modal-login-social-btn" id="googleRegisterBtn">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </button>
+            </div>
+            
+            <div class="modal-login-footer">
+                <a href="#" id="switchToLoginLink" data-key="loginLink">Đã có tài khoản? Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- File input ẩn cho avatar -->
+    <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
+
+    <script>
+        window.provincesData = [];
+        window.heroImages = [];
+        window.translations = {};
+    </script>
+
+    <script src="js/data.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/users.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+        console.log("🔥 Firebase loading...");
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCHu4ZTXF8OfAEjd6-wZ1PkQKpSt46Xrnk",
+            authDomain: "vietnam-travel-guide-10fd0.firebaseapp.com",
+            projectId: "vietnam-travel-guide-10fd0",
+            storageBucket: "vietnam-travel-guide-10fd0.firebasestorage.app",
+            messagingSenderId: "92270748924",
+            appId: "1:92270748924:web:90a69839f00ac2cbbce379"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.firebaseLogin = function() {
+            console.log("🔥 Login clicked");
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    const user = result.user;
+                    
+                    const userData = {
+                        name: user.displayName,
+                        email: user.email,
+                        avatar: user.photoURL
+                    };
+                    
+                    if (typeof window.handleGoogleLogin === 'function') {
+                        window.handleGoogleLogin(user);
+                    } else if (typeof setGlobalUser === 'function') {
+                        setGlobalUser(userData, true);
+                        
+                        document.getElementById('loginModal')?.classList.remove('active');
+                        
+                        const lang = localStorage.getItem('vietnamTravelLanguage') || 'vn';
+                        const message = lang === 'en' ? 'Welcome ' + user.displayName : 'Xin chào ' + user.displayName;
+                        if (typeof showToast === 'function') {
+                            showToast(message, 'success');
+                        }
+                    }
+                })
+                .catch((error) => {
+                    alert("Lỗi: " + error.message);
+                });
+        };
+
+        console.log("✅ Firebase ready");
+    </script>
+
+    <script>
+        // Đồng bộ user và language
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUser = localStorage.getItem('currentSession');
+            if (savedUser) {
+                try {
+                    const userData = JSON.parse(savedUser);
+                    if (typeof setGlobalUser === 'function') {
+                        setGlobalUser(userData, false);
+                    }
+                } catch (e) {
+                    console.error('Lỗi parse user:', e);
+                }
+            }
+            
+            const savedLang = localStorage.getItem('vietnamTravelLanguage') || 'vn';
+            const langSelect = document.getElementById('languageSelect');
+            if (langSelect) {
+                langSelect.value = savedLang;
+            }
+            
+            if (typeof applyLanguage === 'function') {
+                applyLanguage(savedLang);
+            }
+        });
+    </script>
+
+    <script src="js/main_logic.js"></script>
+</body>
+</html>
